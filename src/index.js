@@ -2,6 +2,12 @@ const assert = require('assert');
 
 
 
+exports.from = (objArr, key) => {
+  return objArr.reduce((obj, map) => { map[obj[key]] = obj; return map; }, {});
+}
+
+
+
 exports.sort = (obj, sortOrder) => {
 
   let keys = Object.keys(obj);
@@ -43,4 +49,14 @@ exports.sortDeep = (obj, ...sortOrders) => {
 
   return ret;
 
+}
+
+
+
+exports.pluck = (obj, heads) => {
+  return heads.map(head => obj[head]);
+}
+
+exports.pluckAll = (objArr, heads) => {
+  return objArr.map(obj => heads.map(head => obj[head]));
 }
