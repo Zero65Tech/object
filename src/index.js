@@ -3,7 +3,7 @@ const assert = require('assert');
 
 
 exports.from = (objArr, key) => {
-  return objArr.reduce((obj, map) => { map[obj[key]] = obj; return map; }, {});
+  return objArr.reduce((map, obj) => { map[obj[key]] = obj; return map; }, {});
 }
 
 
