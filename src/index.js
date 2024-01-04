@@ -57,6 +57,3 @@ exports.pluck = (obj, heads) => {
   return heads.map(head => obj[head]);
 }
 
-exports.pluckAll = (objArr, heads) => {
-  return objArr.map(obj => heads.map(head => obj[head]));
-}
