@@ -8,6 +8,31 @@ exports.from = (objArr, key) => {
 
 
 
+exports.trim = (obj) => {
+  for(let [ key, value ] of Object.entries(obj)) {
+
+    if(typeof value != 'object') {
+
+      if(value === undefined || value === null || value === '' || value === 0)
+        delete obj[key];
+
+    } else if(value instanceof Array) {
+
+      if(value.length == 0)
+        delete obj[key];
+
+    } else {
+
+      exports.trim(obj[key]);
+
+      if(Object.keys(value).length == 0)
+        delete obj[key];
+
+    }
+
+  }
+}
+
 exports.sort = (obj, sortOrder) => {
 
   let keys = Object.keys(obj);
@@ -42,7 +67,7 @@ exports.sortDeep = (obj, ...sortOrders) => {
   let ret = {};
   for(let key of keys) {
     if(typeof obj[key] == 'object')
-      ret[key] = this.sortDeep(obj[key], ...sortOrders);
+      ret[key] = exports.sortDeep(obj[key], ...sortOrders);
     else
       ret[key] = obj[key];
   }
