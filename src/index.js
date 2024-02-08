@@ -39,7 +39,14 @@ exports.sum = (obj) => {
 
   let values = obj instanceof Array ? obj : Object.values(obj);
 
-  return values.reduce((sum, val) => sum + (typeof val == 'number' ? val : exports.sum(val)), 0);
+  return values.reduce((sum, val) => {
+    if(typeof val == 'number')
+      return sum + val;
+    else if(val === undefined || val === null)
+      return sum;
+    else
+      return sum + exports.sum(val);
+  }, 0);
 
 }
 
