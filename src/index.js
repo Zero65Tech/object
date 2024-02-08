@@ -35,7 +35,7 @@ exports.trim = (obj) => {
 
 exports.sum = (obj) => {
 
-  assert(typeof obj, 'object');
+  assert.equal(typeof obj, 'object');
 
   let values = obj instanceof Array ? obj : Object.values(obj);
 
