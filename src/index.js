@@ -33,6 +33,16 @@ exports.trim = (obj) => {
   }
 }
 
+exports.sum = (obj) => {
+
+  assert(typeof obj, 'object');
+
+  let values = obj instanceof Array ? obj : Object.values(obj);
+
+  return values.reduce((sum, val) => sum + (typeof val == 'number' ? val : exports.sum(val)), 0);
+
+}
+
 exports.sort = (obj, sortOrder) => {
 
   let keys = Object.keys(obj);
