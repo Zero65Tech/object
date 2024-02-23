@@ -9,6 +9,23 @@ exports.from = (objArr, key) => {
 
 
 
+exports.nav = (obj, path, fn, ...keys) => {
+  
+  if(!path.length)
+    return fn(...keys, obj);
+  
+  if(typeof obj != 'object')
+    return;
+
+  Object.keys(obj).forEach(key => {
+    if(key.match(path[0]))
+      exports.nav(obj[key], path.slice(1), fn, ...keys, key);
+  });
+
+}
+
+
+
 exports.trim = (obj) => {
   for(let [ key, value ] of Object.entries(obj)) {
 
