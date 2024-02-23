@@ -38,21 +38,6 @@ exports.trim = (obj) => {
   }
 }
 
-exports.sum = (obj) => {
-
-  let values = obj instanceof Array ? obj : Object.values(obj);
-
-  return values.reduce((sum, val) => {
-    if(typeof val == 'number')
-      return sum + val;
-    else if(val === undefined || val === null)
-      return sum;
-    else
-      return sum + exports.sum(val);
-  }, 0);
-
-}
-
 exports.sort = (obj, sortOrder) => {
 
   let keys = Object.keys(obj);
@@ -97,6 +82,21 @@ exports.sortDeep = (obj, ...sortOrders) => {
 }
 
 
+
+exports.sum = (obj) => {
+
+  let values = obj instanceof Array ? obj : Object.values(obj);
+
+  return values.reduce((sum, val) => {
+    if(typeof val == 'number')
+      return sum + val;
+    else if(val === undefined || val === null)
+      return sum;
+    else
+      return sum + exports.sum(val);
+  }, 0);
+
+}
 
 exports.add = (obj1, obj2) => {
 
