@@ -57,18 +57,23 @@ exports.trim = (obj) => {
 
 exports.sort = (obj, sortOrder) => {
 
-  let keys = Object.keys(obj);
+  let keys = obj instanceof Array ? obj : Object.keys(obj);
 
   if(sortOrder)
     keys.sort((a, b) => a == b ? 0 : (sortOrder.indexOf(a) < sortOrder.indexOf(b) ? -1 : 1));
   else
-    keys.sort();
+    keys.sort();    
 
-  let ret = {};
-  for(let key of keys)
-    ret[key] = obj[key];
+  if(obj instanceof Array)
+    return;
 
-  return ret;
+  for(let key of keys) {
+    let temp = obj[key];
+    delete obj[key];
+    obj[key] = temp;
+  }
+
+  return obj; // TODO: Remove
 
 }
 
