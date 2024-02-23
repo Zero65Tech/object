@@ -1,4 +1,5 @@
 const assert = require('assert');
+const _ = require('lodash');
 
 
 
@@ -92,5 +93,52 @@ exports.sortDeep = (obj, ...sortOrders) => {
   }
 
   return ret;
+
+}
+
+
+
+exports.add = (obj1, obj2) => {
+
+  let obj = {};
+
+  let keys = _.union(Object.keys(obj1), Object.keys(obj2));
+
+  keys.forEach(key => {
+
+    let val1 = obj1[key];
+    let val2 = obj2[key];
+
+    if(val1 === undefined || val1 === null) {
+
+      if(val2 === undefined || val2 === null )
+        return;
+      else if(typeof val2 == 'object')
+        obj[key] = _.cloneDeep(val2);
+      else
+        obj[key] = val2;
+
+    } else if(val2 === undefined || val2 === null) {
+
+      if(val1 === undefined || val1 === null)
+        return;
+      else if(typeof val1 == 'object')
+        obj[key] = _.cloneDeep(val1);
+      else
+        obj[key] = val1;
+
+    } else if(typeof val1 == 'object' && typeof val2 == 'object') {
+
+      obj[key] = exports.add(val1, val2);
+
+    } else {
+
+      obj[key] = val1 + val2;
+
+    }
+
+  });
+
+  return obj;
 
 }

@@ -1,7 +1,7 @@
 {
   "author": "Zero65 Technologies Pvt. Ltd.",
   "name": "@zero65tech/object",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Object Toolkit",
   "license": "MIT",
   "repository": {
@@ -17,6 +17,9 @@
   "scripts": {
     "test": "jest --coverage --testPathPattern=test/",
     "lint": "npx eslint --fix ."
+  },
+  "dependencies": {
+    "lodash": "4.17.x"
   },
   "devDependencies": {
     "eslint": "8.54.x",
