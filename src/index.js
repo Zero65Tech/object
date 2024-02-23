@@ -13,8 +13,12 @@ exports.trim = (obj) => {
 
     if(typeof value != 'object') {
 
-      if(value === undefined || value === null || value === '' || value === 0)
+      if(value === undefined || value === '' || value === 0)
         delete obj[key];
+
+    } else if(value === null) {
+
+      delete obj[key];
 
     } else if(value instanceof Array) {
 
@@ -34,8 +38,6 @@ exports.trim = (obj) => {
 }
 
 exports.sum = (obj) => {
-
-  assert.equal(typeof obj, 'object');
 
   let values = obj instanceof Array ? obj : Object.values(obj);
 
@@ -92,10 +94,3 @@ exports.sortDeep = (obj, ...sortOrders) => {
   return ret;
 
 }
-
-
-
-exports.pluck = (obj, heads) => {
-  return heads.map(head => obj[head]);
-}
-
