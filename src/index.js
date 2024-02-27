@@ -143,6 +143,29 @@ exports.add = (object, ...sources) => {
 
 }
 
+exports.subtract = (object, ...sources) => {
+
+  object = _.cloneDeep(object);
+
+  _.mergeWith(object, ...sources, (val1, val2) => {
+
+    if(typeof val1 === 'object' || typeof val2 === 'object')
+      return undefined;
+
+    if(val1 === undefined || val1 === null)
+      return -val2;
+
+    if(val2 === undefined || val2 === null)
+      return val1;
+
+    return val1 - val2;
+
+  });
+
+  return object;
+
+}
+
 
 
 exports.addAt = (object, path, value) => {
