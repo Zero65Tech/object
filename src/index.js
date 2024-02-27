@@ -142,3 +142,17 @@ exports.add = (object, ...sources) => {
   return object;
 
 }
+
+
+
+exports.addAt = (object, path, value) => {
+  _.update(object, path, node => (node || 0) + value);
+}
+
+exports.pushAt = (object, path, value) => {
+  _.update(object, path, node => {
+    node = node || [];
+    node.push(value);
+    return node;
+  });
+}
