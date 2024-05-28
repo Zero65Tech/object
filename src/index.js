@@ -9,18 +9,20 @@ exports.from = (objArr, key) => {
 
 
 
-exports.nav = (obj, path, fn, ...keys) => {
+exports.nav = (obj, path, fn, ret = {}, ...keys) => {
   
   if(!path.length)
-    return fn(...keys, obj);
+    return fn(...keys, obj, ret);
   
   if(typeof obj != 'object')
     return;
 
   Object.keys(obj).forEach(key => {
     if(key.match(path[0]))
-      exports.nav(obj[key], path.slice(1), fn, ...keys, key);
+      exports.nav(obj[key], path.slice(1), fn, ret, ...keys, key);
   });
+
+  return ret;
 
 }
 
