@@ -187,7 +187,7 @@ exports.updateAll = (obj, path, fn) => {
   if(typeof obj != 'object')
     return;
 
-  let keys = Object.keys(obj).filter(key => key.match(path[0]);
+  let keys = Object.keys(obj).filter(key => key.match(path[0]));
 
   if(path.length > 1)
     keys.forEach(key => exports.updateAll(obj[key], path.slice(1), fn));
