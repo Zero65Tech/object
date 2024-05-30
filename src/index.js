@@ -181,3 +181,17 @@ exports.pushAt = (object, path, value) => {
     return node;
   });
 }
+
+exports.updateAll = (obj, path, fn) => {
+  
+  if(typeof obj != 'object')
+    return;
+
+  let keys = Object.keys(obj).filter(key => key.match(path[0]);
+
+  if(path.length > 1)
+    keys.forEach(key => exports.updateAll(obj[key], path.slice(1), fn));
+  else
+    keys.forEach(key => obj[key] = fn(obj[key]));
+
+}
