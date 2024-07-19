@@ -17,10 +17,13 @@ exports.nav = (obj, path, fn, ret = {}, ...keys) => {
   if(typeof obj != 'object')
     return;
 
-  Object.keys(obj).forEach(key => {
-    if(key.match(path[0]))
-      exports.nav(obj[key], path.slice(1), fn, ret, ...keys, key);
-  });
+  let keys = Object.keys(obj);
+  if(typeof path[0] == 'string')
+    keys = keys.filter(key => key == path[0]);
+  else
+    keys = keys.filter(key => key.match(path[0]));
+
+  keys.forEach(key => exports.nav(obj[key], path.slice(1), fn, ret, ...keys, key));
 
   return ret;
 
