@@ -9,10 +9,10 @@ exports.from = (objArr, key) => {
 
 
 
-exports.nav = (obj, path, fn, ret = {}, ...keys) => {
+exports.nav = (obj, path, fn, ret = {}, ...params) => {
   
   if(!path.length)
-    return fn(...keys, obj, ret);
+    return fn(...params, obj, ret);
   
   if(typeof obj != 'object')
     return;
@@ -23,7 +23,7 @@ exports.nav = (obj, path, fn, ret = {}, ...keys) => {
   else
     keys = keys.filter(key => key.match(path[0]));
 
-  keys.forEach(key => exports.nav(obj[key], path.slice(1), fn, ret, ...keys, key));
+  keys.forEach(key => exports.nav(obj[key], path.slice(1), fn, ret, ...params, key));
 
   return ret;
 
@@ -190,7 +190,11 @@ exports.updateAll = (obj, path, fn) => {
   if(typeof obj != 'object')
     return;
 
-  let keys = Object.keys(obj).filter(key => key.match(path[0]));
+  let keys = Object.keys(obj);
+  if(typeof path[0] == 'string')
+    keys = keys.filter(key => key == path[0]);
+  else
+    keys = keys.filter(key => key.match(path[0]));
 
   if(path.length > 1)
     keys.forEach(key => exports.updateAll(obj[key], path.slice(1), fn));
