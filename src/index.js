@@ -67,7 +67,7 @@ exports.sort = (obj, sortOrder) => {
   if(sortOrder)
     keys.sort((a, b) => a == b ? 0 : (sortOrder.indexOf(a) < sortOrder.indexOf(b) ? -1 : 1));
   else
-    keys.sort();    
+    keys.sort();
 
   if(obj instanceof Array)
     return;
@@ -78,33 +78,26 @@ exports.sort = (obj, sortOrder) => {
     obj[key] = temp;
   }
 
-  return obj; // TODO: Remove
+  return obj;
 
 }
 
 exports.sortDeep = (obj, ...sortOrders) => {
 
-  if(!sortOrders.length)
-    return obj;
-
-  let sortOrder = sortOrders[0];
-  sortOrders = sortOrders.slice(1);
-
-  let keys = Object.keys(obj);
-  if(sortOrder)
-    keys.sort((a, b) => a == b ? 0 : (sortOrder.indexOf(a) < sortOrder.indexOf(b) ? -1 : 1));
-  else // if(sortOrder == null)
-    keys.sort();
-
-  let ret = {};
-  for(let key of keys) {
-    if(typeof obj[key] == 'object')
-      ret[key] = exports.sortDeep(obj[key], ...sortOrders);
-    else
-      ret[key] = obj[key];
+  if(sortOrders.length == 1) {
+    exports.sort(obj, sortOrders[0]);
+  } else if(obj instanceof Array) {
+    sortOrders = sortOrders.slice(1);
+    for(let i = 0; i < obj.length; i++)
+      obj[i] = exports.sortDeep(obj[i], sortOrders);
+  } else {
+    exports.sort(obj, sortOrders[0]);
+    sortOrders = sortOrders.slice(1);
+    for(let key in obj)
+      obj[key] = exports.sortDeep(obj[key], sortOrders);
   }
 
-  return ret;
+  return obj;
 
 }
 
