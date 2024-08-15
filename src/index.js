@@ -84,7 +84,9 @@ exports.sort = (obj, sortOrder) => {
 
 exports.sortDeep = (obj, ...sortOrders) => {
 
-  if(sortOrders.length == 1) {
+  if(obj === undefined || obj === null) {
+    // Do Nothing
+  } else if(sortOrders.length == 1) {
     exports.sort(obj, sortOrders[0]);
   } else if(obj instanceof Array) {
     sortOrders = sortOrders.slice(1);
