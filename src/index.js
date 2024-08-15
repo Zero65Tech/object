@@ -70,7 +70,7 @@ exports.sort = (obj, sortOrder) => {
     keys.sort();
 
   if(obj instanceof Array)
-    return;
+    return obj;
 
   for(let key of keys) {
     let temp = obj[key];
@@ -89,12 +89,12 @@ exports.sortDeep = (obj, ...sortOrders) => {
   } else if(obj instanceof Array) {
     sortOrders = sortOrders.slice(1);
     for(let i = 0; i < obj.length; i++)
-      obj[i] = exports.sortDeep(obj[i], sortOrders);
-  } else {
+      obj[i] = exports.sortDeep(obj[i], ...sortOrders);
+  } else if(typeof obj == 'object') {
     exports.sort(obj, sortOrders[0]);
     sortOrders = sortOrders.slice(1);
     for(let key in obj)
-      obj[key] = exports.sortDeep(obj[key], sortOrders);
+      obj[key] = exports.sortDeep(obj[key], ...sortOrders);
   }
 
   return obj;
