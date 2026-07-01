@@ -19,7 +19,7 @@
     "lint": "npx eslint --fix ."
   },
   "dependencies": {
-    "lodash": "4.17.x"
+    "lodash": "4.18.x"
   },
   "devDependencies": {
     "eslint": "8.54.x",
